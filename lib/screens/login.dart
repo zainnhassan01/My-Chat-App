@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mychatproject/data%20models/providerclass.dart';
 import 'package:mychatproject/services/firebaseauth.dart';
+import 'package:mychatproject/services/firebasefirestore.dart';
 import 'package:mychatproject/utlities/colors.dart';
 import 'package:mychatproject/widgets/loading.dart';
 import 'package:mychatproject/widgets/loginbutton.dart';
@@ -81,12 +82,14 @@ class _LoginState extends State<Login> {
                       imageAddress: "assets/images/google.png",
                       text: "Google Sign In",
                       onPressed: () async {
-                        // setState(() {
-                        //   loading = true;
-                        // });
                         context.read<ProviderClass>().setLoading(true);
                         String? result = await AuthService().signInWithGoogle();
+                        String? databaseResult = await FireStoreClass().createNewUser();
                         snackBarLogin(result!);
+                        if(databaseResult != null){
+                        Future.delayed(const Duration(seconds: 3), () => 
+                        snackBarLogin(databaseResult));
+                        }
                       },
                     ),
                   ),

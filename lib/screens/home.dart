@@ -1,15 +1,19 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:mychatproject/main.dart';
 import 'package:mychatproject/services/firebaseauth.dart';
+import 'package:mychatproject/services/firebasefirestore.dart';
 import 'package:mychatproject/utlities/colors.dart';
+import 'package:mychatproject/widgets/loading.dart';
 import 'package:mychatproject/widgets/searchbar.dart';
 
 class Home extends StatelessWidget {
-  const Home({super.key});
-
+  Home({super.key});
+  List userdata = [];
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -55,6 +59,22 @@ class Home extends StatelessWidget {
                     ],
                   )),
               const SearchBarWidget(),
+              Padding(
+                padding: EdgeInsets.fromLTRB(0, mq.height * 0.2, 0, 0),
+                child: Container(
+                  child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                    stream: FireStoreClass().userLists,
+                    builder: (context, snapshot) {
+                      final data = snapshot.data!.docs;
+                      for (var x in data) {
+                        final dataVar = jsonEncode(x.data());
+                        print(dataVar);
+                      }
+                      return Loading();
+                    },
+                  ),
+                ),
+              )
             ],
           ),
         ),
