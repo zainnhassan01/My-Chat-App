@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:mychatproject/utlities/colors.dart';
 
+import '../main.dart';
+
 class LoginButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
-  final String imageAddress;
-  LoginButton(
+  final String? imageAddress;
+  final IconData? icon;
+  const LoginButton(
       {super.key,
       required this.text,
       required this.onPressed,
-      required this.imageAddress});
+      this.imageAddress,
+      this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -17,21 +21,23 @@ class LoginButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
           backgroundColor: buttonColor,
-          minimumSize: Size(double.infinity, 30),
-          shape: StadiumBorder()),
+          minimumSize: const Size(double.infinity, 30),
+          shape: const StadiumBorder()),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          imageAddress != null ? 
           CircleAvatar(
             radius: 20,
             backgroundColor: Colors.white,
             child: Image.asset(
-            imageAddress,
+            imageAddress!,
             height: 25,
-          )),
+          )) : Icon(icon) ,
+          SizedBox(width: mq.width * 0.05,),
           Text(
             text,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
           ),
         ],

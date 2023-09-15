@@ -44,3 +44,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+//snackbar not working properly and also the manage the data coming from firebase and how to pass it in the screens

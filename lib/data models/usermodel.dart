@@ -7,7 +7,7 @@ class UserStreamDataModel {
 class UserModel {
   UserModel({
     required this.createdAt,
-    this.image,
+    required this.image,
     required this.lastActive,
     required this.about,
     required this.name,
@@ -17,7 +17,7 @@ class UserModel {
     required this.email,
   });
   late final String createdAt;
-  late final String? image;
+  late final String image;
   late final String lastActive;
   late final String about;
   late final String name;

@@ -85,11 +85,7 @@ class _LoginState extends State<Login> {
                         context.read<ProviderClass>().setLoading(true);
                         String? result = await AuthService().signInWithGoogle();
                         String? databaseResult = await FireStoreClass().createNewUser();
-                        snackBarLogin(result!);
-                        if(databaseResult != null){
-                        Future.delayed(const Duration(seconds: 3), () => 
-                        snackBarLogin(databaseResult));
-                        }
+                        // snackBarLogin(result!);
                       },
                     ),
                   ),
